@@ -24,6 +24,9 @@ gem sources -a http://gems.github.com
 
 sudo gem install thuss-shift_subtitle
 
+== Usage
+shift_subtitle --operation add --time 2,500 input output
+
 == Copyright
 
 Copyright (c) 2009 Todd Huss. See LICENSE for details.
