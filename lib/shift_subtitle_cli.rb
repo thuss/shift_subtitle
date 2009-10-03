@@ -17,13 +17,12 @@ class ShiftSubtitleCli < ShiftSubtitle
   def parse_options(arguments)
     options = {}
     mandatory_options = [ :operation, :seconds, :milliseconds, :input_file, :output_file ]
-
     parser = OptionParser.new do |opts|
       opts.banner = <<-BANNER.gsub(/^      /,'')
       Shift Subtitle Ruby Challenge
-
+      
       Usage: #{File.basename($0)} --operation [add|sub] --time [seconds,milliseconds] input_file output_file
-
+      
       Options are:
       BANNER
       opts.separator ""
@@ -43,7 +42,6 @@ class ShiftSubtitleCli < ShiftSubtitle
       opts.on("-h", "--help", "Show this help message.") { puts opts; exit 0 }
 
       opts.parse!(arguments)
-
       options[:input_file], options[:output_file] = arguments.pop(2) 
 
       if mandatory_options.find { |option| options[option].nil? } 
@@ -53,7 +51,7 @@ class ShiftSubtitleCli < ShiftSubtitle
     options
   end
 
-  # Converts the time options into a float such as :sub 2,500 => -2.5 
+  # Converts the time and operation into a float (:sub 2,500 returns -2.5) 
   def time_to_shift(options)
     shift_time = options[:seconds].to_i + options[:milliseconds].to_f/1000
     shift_time *= (options[:operation] == :sub)?-1:1

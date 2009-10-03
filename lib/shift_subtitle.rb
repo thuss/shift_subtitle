@@ -1,8 +1,8 @@
+require 'time'
+
 class ShiftSubtitle
-  
-  # Takes an SRT IO stream and shifts it by shift_seconds 
-  # * input_srt and output_src should be an IO subclass such as File or StringIO
-  # * shift_seconds can be a positive or negative float or int
+
+  # Takes an SRT IO stream (such as File) and shifts it by shift_seconds (e.g. -2.5)
   def shift_srt(input_srt, output_srt, shift_seconds)
     input_srt.each_line do | line |
       srt_time_regex = /^(\d\d:\d\d:\d\d,\d\d\d)( --> )(\d\d:\d\d:\d\d,\d\d\d)/ 
@@ -14,29 +14,20 @@ class ShiftSubtitle
       output_srt.write line
     end
   end
-  
-  # Take an SRT timestamp string and shifts it by shift seconds
-  # * srt_time_string should be a string of format '01:32:06,783'
-  # * shift_seconds can be positive or negative float or int
+
+  # Takes an SRT timestamp ('01:01:23,500') and shifts it by shift seconds (-2.5)
   def shift_timestamp(srt_time_string, shift_seconds)
     if (srt_time_string =~ /(\d\d):(\d\d):(\d\d),(\d\d\d)/)
-      s_hour, s_min, s_sec, s_usec = $1.to_i, $2.to_i, $3.to_i, $4.to_i
-      time = Time.at(s_hour * 3600 + s_min * 60 + s_sec, s_usec * 1000).utc
-      time += shift_seconds
-      
-      if time.to_f < 0 
-        time = Time.at(0).utc 
+      time = Time.parse('2000-01-01 ' + srt_time_string + 'UTC') + shift_seconds
+      hours = time.hour
+      case
+        when time.day == 31 then hours = 0; time = Time.at(0).utc # Never go below 00:00:00,000
+        when time.day > 1 then hours += (time.day - 1) * 24 # Support times > 23 hours
       end
-      
-      hour = "%02d" % (time.hour + (time.day - 1) * 24)
-      min = "%02d" % time.min
-      sec = "%02d" % time.sec
-      msec = "%03d" % (time.usec/1000)
-      
-      "#{hour}:#{min}:#{sec},#{msec}"
+      "#{'%02d'%hours}:#{'%02d'%time.min}:#{'%02d'%time.sec},#{'%03d'%(time.usec/1000)}"
     else
-      raise ArgumentError, "error parsing SRT time " + srt_time_string
+      raise ArgumentError, "unexpected SRT timestamp format " + srt_time_string
     end
   end
-    
+
 end

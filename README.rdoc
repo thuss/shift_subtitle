@@ -9,7 +9,7 @@ http://rubylearning.com/blog/2009/09/24/rpcfn-shift-subtitle-1
 * Bundled as a github gem (thanks to Jeweler[http://github.com/technicalpickles/jeweler])
 * No external gem dependencies to use the gem
 * Command line related code in shift_subtitle_cli.rb and SubRib/SRT processing code in shift_subtitle.rb
-* shift_subtitle.rb uses IO subclasses (such as File and StringIO) to support processing large files
+* shift_subtitle.rb uses IO streams (such as File and StringIO) to support processing large files
 * Time shifting handles boundary cases
   * Lower boundary shifting 00:00:00,001 down by a second shifts to 00:00:00,000
   * Shifting above the 24 hour boundary works fine (25, 26, 27 hours) and doesn't rollover back to 00 hours
