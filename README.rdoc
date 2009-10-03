@@ -5,7 +5,7 @@ My submission for Ruby Challenge #1: Shift Subtitle
 http://rubylearning.com/blog/2009/09/24/rpcfn-shift-subtitle-1
 
 == Features
-* 100% RSpec[http://rspec.info/] test coverage
+* 100% RSpec[http://rspec.info/] test coverage of both lib/* and bin/*
 * Bundled as a github gem (thanks to Jeweler[http://github.com/technicalpickles/jeweler])
 * No external gem dependencies to use the gem
 * Command line related code in shift_subtitle_cli.rb and SubRib/SRT processing code in shift_subtitle.rb
