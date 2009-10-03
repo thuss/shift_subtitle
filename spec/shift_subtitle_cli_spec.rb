@@ -7,6 +7,14 @@ describe ShiftSubtitleCli do
     @cli = ShiftSubtitleCli.new
   end
 
+  it "should shift the time when an SRT file is provided" do
+    input = StringIO.new("1\n00:00:24,600 --> 00:00:27,800\nthis is a test...")
+    output = StringIO.new
+    File.stub!(:new).and_return(input, output)
+    @cli.execute(['--operation', 'sub', '--time', '2,500', 'infile', 'outfile'])
+    output.string.should eql("1\n00:00:22,100 --> 00:00:25,300\nthis is a test...")
+  end
+
   it "should print help to stderr when no options are provided" do
     output = capture_stderr do
       lambda { @cli.parse_options([]) }.should raise_error(SystemExit)
@@ -30,6 +38,11 @@ describe ShiftSubtitleCli do
   it "should convert the operation, seconds, and milliseconds into a float of seconds to shift" do
     options = @cli.parse_options(['--operation', 'sub', '--time', '2,500', 'infile', 'outfile'])
     @cli.time_to_shift(options).should eql(-2.5)
+  end
+  
+  it "should convert unusually large millisecond values correctly" do
+    options = @cli.parse_options(['--operation', 'add', '--time', '2,5000', 'infile', 'outfile'])
+    @cli.time_to_shift(options).should eql(7.0)
   end
 
   describe "when the --operation argument is specified" do

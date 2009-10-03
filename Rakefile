@@ -13,7 +13,7 @@ begin
     gem.add_development_dependency "rspec"
   end
 rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
+  puts "Jeweler is not available. Install it with: sudo gem install jeweler"
 end
 
 require 'spec/rake/spectask'
@@ -26,6 +26,7 @@ Spec::Rake::SpecTask.new(:rcov) do |spec|
   spec.libs << 'lib' << 'spec'
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
+  spec.rcov_opts = ['--exclude', 'lib/spec,bin/spec,spec/*,rcov*']
 end
 
 task :spec => :check_dependencies

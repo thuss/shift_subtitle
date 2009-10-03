@@ -3,10 +3,15 @@ require 'shift_subtitle'
 
 class ShiftSubtitleCli < ShiftSubtitle
   def execute(arguments)
-    options = parse_options arguments
-    input_file = File.new options[:input_file], 'r'
-    output_file = File.new options[:output_file], 'w'
-    shift_srt input_file, output_file, time_to_shift(options)
+    begin
+      options = parse_options arguments
+      input_file = File.new options[:input_file], 'r'
+      output_file = File.new options[:output_file], 'w'
+      shift_srt input_file, output_file, time_to_shift(options)
+    ensure
+      input_file.close unless input_file.nil?
+      output_file.close unless output_file.nil?
+    end
   end
 
   def parse_options(arguments)
@@ -47,7 +52,7 @@ class ShiftSubtitleCli < ShiftSubtitle
     end
     options
   end
-  
+
   # Converts the options into a float such as :sub 2,500 = -2.5 
   def time_to_shift(options)
     shift_time = options[:seconds].to_i + options[:milliseconds].to_f/1000
