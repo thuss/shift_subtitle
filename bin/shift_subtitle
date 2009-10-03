@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+#
+#  Created on 2009-9-26.
+#  Copyright (c) 2009. All rights reserved.
+
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+require "shift_subtitle_cli"
+
+ShiftSubtitleCli.new.execute(ARGV)
