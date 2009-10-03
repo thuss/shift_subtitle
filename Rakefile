@@ -12,6 +12,7 @@ begin
     gem.authors = ["Todd Huss"]
     gem.add_development_dependency "rspec"
   end
+  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler is not available. Install it with: sudo gem install jeweler"
 end
