@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "shift_subtitle"
+    gem.name = "thuss-shift_subtitle"
     gem.summary = %Q{Ruby Challenge #1: Shift Subtitle}
     gem.description = %Q{Submission for the Ruby Challenge to create a command line tool to shift SubRib formatted movie subtitles}
     gem.email = "thuss@gabrito.com"

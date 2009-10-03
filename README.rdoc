@@ -16,9 +16,7 @@ http://rubylearning.com/blog/2009/09/24/rpcfn-shift-subtitle-1
 
 == Requirements
 
-You must have Github in your gem sources
-
-gem sources -a http://gems.github.com
+You must have Gemcutter[http://gemcutter.org/] registered in your gem sources
 
 == Install
 
