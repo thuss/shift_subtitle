@@ -11,7 +11,7 @@ http://rubylearning.com/blog/2009/09/24/rpcfn-shift-subtitle-1
 * Command line related code in shift_subtitle_cli.rb and SubRib/SRT processing code in shift_subtitle.rb
 * shift_subtitle.rb uses IO subclasses (such as File and StringIO) to support processing large files
 * Time shifting handles boundary cases
-  * Shifting 00:00:00,001 down by a second shifts to 00:00:00,000 (perhaps we should show a warning?)
+  * Lower boundary shifting 00:00:00,001 down by a second shifts to 00:00:00,000
   * Shifting above the 24 hour boundary works fine (25, 26, 27 hours) and doesn't rollover back to 00 hours
 
 == Requirements
@@ -26,6 +26,11 @@ sudo gem install thuss-shift_subtitle
 
 == Usage
 shift_subtitle --operation add --time 2,500 input output
+
+== Todo
+
+* Add a --version flag
+* Perhaps throw a warning if a subtraction shift results in the floor of 00:00:00,000
 
 == Copyright
 

@@ -15,7 +15,7 @@ class ShiftSubtitleCli < ShiftSubtitle
   end
 
   def parse_options(arguments)
-    options = { }
+    options = {}
     mandatory_options = [ :operation, :seconds, :milliseconds, :input_file, :output_file ]
 
     parser = OptionParser.new do |opts|
@@ -53,7 +53,7 @@ class ShiftSubtitleCli < ShiftSubtitle
     options
   end
 
-  # Converts the options into a float such as :sub 2,500 = -2.5 
+  # Converts the time options into a float such as :sub 2,500 => -2.5 
   def time_to_shift(options)
     shift_time = options[:seconds].to_i + options[:milliseconds].to_f/1000
     shift_time *= (options[:operation] == :sub)?-1:1

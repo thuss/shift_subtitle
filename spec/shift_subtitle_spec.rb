@@ -7,33 +7,33 @@ describe ShiftSubtitle do
 
   describe "when shifting time" do
     it "should raise an exception on invalid input" do
-      lambda { @shift_subtitle.shift_srt_time('X1:31:51,210', 0) }.should raise_error(ArgumentError)
+      lambda { @shift_subtitle.shift_timestamp('X1:31:51,210', 0) }.should raise_error(ArgumentError)
     end
 
     it "should leave time unchanged when shifting by zero" do
-      @shift_subtitle.shift_srt_time('01:31:51,210', 0).should eql('01:31:51,210')
+      @shift_subtitle.shift_timestamp('01:31:51,210', 0).should eql('01:31:51,210')
     end
 
     it "should add time" do
-      @shift_subtitle.shift_srt_time('01:31:51,210', 1.5).should eql('01:31:52,710')
+      @shift_subtitle.shift_timestamp('01:31:51,210', 1.5).should eql('01:31:52,710')
     end
 
     it "should add time beyond the 24 hour boundary" do
-      @shift_subtitle.shift_srt_time('23:59:59,500', 1.5).should eql('24:00:01,000')
+      @shift_subtitle.shift_timestamp('23:59:59,500', 1.5).should eql('24:00:01,000')
     end
 
     it "should subtract time" do
-      @shift_subtitle.shift_srt_time('01:31:51,210', -1.5).should eql('01:31:49,710')
+      @shift_subtitle.shift_timestamp('01:31:51,210', -1.5).should eql('01:31:49,710')
     end
 
     it "should not subtract below zero" do
-      @shift_subtitle.shift_srt_time('00:00:01,000', -1.5).should eql('00:00:00,000')
+      @shift_subtitle.shift_timestamp('00:00:01,000', -1.5).should eql('00:00:00,000')
     end
   end
 
   describe "when processing srt input" do
     before(:each) do
-      @input_srt    = StringIO.new(<<-SRT.gsub(/^        /,'')
+      @input_srt = StringIO.new(<<-SRT.gsub(/^        /,'')
         1
         00:00:20,000 --> 00:00:24,400
         In connection with a dramatic increase
@@ -44,7 +44,7 @@ describe ShiftSubtitle do
         the government is implementing a new policy...
       SRT
       )
-      @output_srt   = StringIO.new
+      @output_srt = StringIO.new
     end
 
     it "should output the shifted srt" do

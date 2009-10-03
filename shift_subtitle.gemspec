@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "bin/shift_subtitle",
      "lib/shift_subtitle.rb",
      "lib/shift_subtitle_cli.rb",
+     "shift_subtitle.gemspec",
      "spec/shift_subtitle_cli_spec.rb",
      "spec/shift_subtitle_spec.rb",
      "spec/spec_helper.rb"
