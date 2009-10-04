@@ -9,14 +9,13 @@ describe ShiftSubtitleCli do
   
   describe "running bin/shift_subtitle" do
     before :each do
-      Object.send(:remove_const, :ARGV)
       input = StringIO.new("1\n00:00:24,600 --> 00:00:27,800\nthis is a test...")
       @output = StringIO.new
       File.stub!(:new).and_return(input, @output)
     end
 
     it "should shift the time when an SRT file is provided" do   
-      ARGV = ['--operation', 'sub', '--time', '2,500', 'infile', 'outfile']
+      ARGV.clear.concat ['--operation', 'sub', '--time', '2,500', 'infile', 'outfile']
       eval File.read(File.join(File.dirname(__FILE__), '..', 'bin', 'shift_subtitle'))
       @output.string.should eql("1\n00:00:22,100 --> 00:00:25,300\nthis is a test...")
     end

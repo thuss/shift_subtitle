@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{thuss-shift_subtitle}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Todd Huss"]
@@ -28,10 +28,10 @@ Gem::Specification.new do |s|
      "bin/shift_subtitle",
      "lib/shift_subtitle.rb",
      "lib/shift_subtitle_cli.rb",
-     "shift_subtitle.gemspec",
      "spec/shift_subtitle_cli_spec.rb",
      "spec/shift_subtitle_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "thuss-shift_subtitle.gemspec"
   ]
   s.homepage = %q{http://github.com/thuss/shift_subtitle}
   s.rdoc_options = ["--charset=UTF-8"]
