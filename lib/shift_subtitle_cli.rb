@@ -42,7 +42,7 @@ class ShiftSubtitleCli < ShiftSubtitle
       opts.on("-h", "--help", "Show this help message.") { puts opts; exit 0 }
 
       opts.parse!(arguments)
-      options[:input_file], options[:output_file] = arguments.pop(2) 
+      options[:input_file], options[:output_file] = arguments[0], arguments[1]
 
       if mandatory_options.find { |option| options[option].nil? } 
         $stderr.puts opts; exit 1
